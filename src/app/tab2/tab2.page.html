@@ -1,17 +1,45 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Tab 2
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
+<!-- Row for small graph trends -->
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 2</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-grid>
+<ion-row id="stats" class="ion-padding">
+  <ion-col>
+    <ion-card>
+      <ion-card-header> Bar Chart </ion-card-header>
+      <ion-card-content>
+        <canvas #barCanvas></canvas>
+      </ion-card-content>
+    </ion-card>
+  </ion-col>
+  <ion-card class="ion-padding">
+  More Information about mood pattern. Recommendation and resources based on Mood, potentially other factors.
+  </ion-card>
+</ion-row>
 
-  <app-explore-container name="Tab 2 page"></app-explore-container>
-</ion-content>
+<ion-row id="stats" class="ion-padding">
+  <ion-col>
+    <ion-card>
+      <ion-card-header> Line Chart </ion-card-header>
+      <ion-card-content>
+        <canvas #lineCanvas></canvas>
+      </ion-card-content>
+    </ion-card>
+    <ion-card class="ion-padding">
+      More Information about sleep/diet/activity pattern. Recommendation and resources, potentially other factors.
+    </ion-card>
+  </ion-col>
+</ion-row>
+
+<ion-row>
+  <ion-col>
+    <ion-card>
+      <ion-card-header> Doughnut Chart </ion-card-header>
+      <ion-card-content>
+        <canvas #doughnutCanvas></canvas>
+      </ion-card-content>
+    </ion-card>
+  </ion-col>
+  <ion-card class="ion-padding">
+    More Information about sleep/diet/activity pattern. Recommendation and resources, potentially other factors.
+  </ion-card>
+</ion-row>
+</ion-grid>

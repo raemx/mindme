@@ -1,0 +1,11 @@
+ion-button, ion-card {
+    text-align: center;
+    margin: auto;
+    display: flex;
+    display: grid;
+}
+
+ion-content, ion-grid{
+    height: 100%;
+    width: 100%;
+}

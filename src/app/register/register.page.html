@@ -1,0 +1,72 @@
+
+<ion-header>
+  <ion-toolbar color="tertiary">
+    <ion-buttons slot="start">
+      <ion-back-button title="empty"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Register</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+<ion-card>
+  <ion-card-header>
+    <ion-card-title>CONTACT</ion-card-title>
+  </ion-card-header>
+  <ion-card-content>
+    <ion-item>
+    <ion-label position="floating">FIRST NAME</ion-label>
+    <ion-input name="name" type="text"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating">LAST NAME</ion-label>
+    <ion-input name="name2" type="text"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating">EMAIL</ion-label>
+    <ion-input name="email" type="email"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating">PASSWORD</ion-label>
+    <ion-input name="password" type="password"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating">CONFIRM PASSWORD</ion-label>
+    <ion-input type="password"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating">PHONE NUMBER</ion-label>
+    <ion-input name="no" type="tel"></ion-input>
+  </ion-item>
+  </ion-card-content>
+</ion-card>
+<ion-card>
+  <ion-card-header>
+    <ion-card-title>ADDRESS</ion-card-title>
+  </ion-card-header>
+  <ion-card-content>
+    <ion-item>
+      <ion-label position="floating">Address Line 1</ion-label>
+      <ion-input name="line1" type="text"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Address Line 2</ion-label>
+      <ion-input name="line2" type="text"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">City</ion-label>
+      <ion-input name="city" type="text"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Town</ion-label>
+      <ion-input name="town" type="text"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Postcode</ion-label>
+      <ion-input name="postcode" type="text"></ion-input>
+    </ion-item>
+  </ion-card-content>
+</ion-card>
+<ion-button size="full" color="light" (click)="register()">Register</ion-button>
+</ion-content>
+

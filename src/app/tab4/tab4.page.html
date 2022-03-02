@@ -1,0 +1,26 @@
+<ion-header [translucent]="true" class="ion-padding">
+  <ion-toolbar>
+    <ion-title>
+      Join the discussion <? php $row["firstname"] $row["lastname"] ?>!
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-row >
+  <ion-col id="stats" class="ion-padding">
+    <ion-card>
+      <ion-card-header>This Week's Discussion </ion-card-header>
+      <ion-card-content>
+        <canvas #barCanvas></canvas>
+      </ion-card-content>
+    </ion-card>
+     <ion-card class="ion-padding">
+       <ion-card-content>
+      <ion-item>
+        <ion-label>Post a comment</ion-label>
+        <ion-input></ion-input>
+      </ion-item>
+      </ion-card-content>
+  </ion-card>
+  </ion-col>
+</ion-row>
