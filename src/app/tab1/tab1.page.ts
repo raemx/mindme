@@ -3,6 +3,8 @@ import { Chart } from "chart.js";
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { Papa} from "ngx-papaparse";
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-tab1',
@@ -34,34 +36,104 @@ export class Tab1Page implements OnInit {
   private barChart: Chart;
   private doughnutChart: Chart;
   private lineChart: Chart;
-  // private todo : FormGroup;
 
-  // constructor( private formBuilder: FormBuilder ) {
-  //   this.todo = this.formBuilder.group({
-  //     title: ['', Validators.required],
-  //     description: [''],
-  // });
-  // }
-  // logForm(){
-  //   console.log(this.todo.value)
-  // }
+   /**
+    * @name items
+    * @type {Array} 
+    * @public
+    * @description     Used to store returned PHP data
+    */
+    public items : Array<any> = [];
+
+
+
+    constructor(public navCtrl: NavController, 
+                public http   : HttpClient) 
+    {
+ 
+    }
   
-  constructor(private papa: Papa) {
-    const csvData = "../csv/sleep.csv"
+ 
+    /**
+     * Triggered when template view is about to be entered
+     * Returns and parses the PHP data through the mood() method
+     *
+     * @public
+     * @method ionViewWillEnter 
+     * @return {None}
+     */
+    ionViewWillEnter() : void
+    {
+       this.mood();
+    }
+ 
+ 
+ 
+ 
+    /**
+     * Retrieve the JSON encoded data from the remote server
+     * Using Angular's Http class and an Observable - then
+     * assign this to the items array for rendering to the HTML template
+     *
+     * @public
+     * @method mood 
+     * @return {None}
+     */
+    mood() : void
+    {
+       this.http
+       .get('http://localhost:8100/tabs/mood.php')
+       .subscribe((data : any) => 
+       {
+          console.dir(data);
+          this.items = data;			
+       },
+       (error : any) =>
+       {
+          console.dir(error);
+       });
+    }
+ 
+ 
+ 
+ 
+    /**
+     * Allow navigation to the Tab1Page for creating a new entry
+     *
+     * @public
+     * @method addEntry 
+     * @return {None}
+     */
+    addEntry() : void
+    {
+       this.navCtrl.navigateForward('Tab1Page');
+    }
+ 
+ 
+ 
     
-    this.papa.parse(csvData,{
-        complete: (result) => {
-            console.log('Parsed: ', result);
-        }
-    });
-}
+    /**
+     * Allow navigation to the AddTechnologyPage for amending an existing entry
+     * (We supply the actual record to be amended, as this method's parameter, 
+     * to the AddTechnologyPage
+     *
+     * @public
+     * @method viewEntry
+     * @param param 		{any} 			Navigation data to send to the next page 
+     * @return {None}
+     */
+    viewEntry(param : any) : void
+    {
+       this.navCtrl.navigateForward('Tab1Page', param);
+    }
+ 
 
   ngOnInit() {
 
     this.barChart = new Chart(this.barCanvas.nativeElement, {
       type: "bar",
       data: {
-        labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+        labels:  ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
         datasets: [
           {
             label: "# of Votes",
@@ -98,27 +170,27 @@ export class Tab1Page implements OnInit {
         }
       }
     });
-    this.doughnutChart = new Chart(this.doughnutCanvas.nativeElement, {
-      type: "doughnut",
-      data: {
-        labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
-        datasets: [
-          {
-            label: "# of Votes",
-            data: [12, 19, 3, 5, 2, 3],
-            backgroundColor: [
-              "rgba(255, 99, 132, 0.2)",
-              "rgba(54, 162, 235, 0.2)",
-              "rgba(255, 206, 86, 0.2)",
-              "rgba(75, 192, 192, 0.2)",
-              "rgba(153, 102, 255, 0.2)",
-              "rgba(255, 159, 64, 0.2)"
-            ],
-            hoverBackgroundColor: ["#FF6384", "#36A2EB", "#FFCE56", "#FF6384", "#36A2EB", "#FFCE56"]
-          }
-        ]
-      }
-    });
+    // this.doughnutChart = new Chart(this.doughnutCanvas.nativeElement, {
+    //   type: "doughnut",
+    //   data: {
+    //     labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+    //     datasets: [
+    //       {
+    //         label: "# of Votes",
+    //         data: [12, 19, 3, 5, 2, 3],
+    //         backgroundColor: [
+    //           "rgba(255, 99, 132, 0.2)",
+    //           "rgba(54, 162, 235, 0.2)",
+    //           "rgba(255, 206, 86, 0.2)",
+    //           "rgba(75, 192, 192, 0.2)",
+    //           "rgba(153, 102, 255, 0.2)",
+    //           "rgba(255, 159, 64, 0.2)"
+    //         ],
+    //         hoverBackgroundColor: ["#FF6384", "#36A2EB", "#FFCE56", "#FF6384", "#36A2EB", "#FFCE56"]
+    //       }
+    //     ]
+    //   }
+    // });
     this.lineChart = new Chart(this.lineCanvas.nativeElement, {
       type: "line",
       data: {
@@ -149,39 +221,6 @@ export class Tab1Page implements OnInit {
         ]
       }
     });
+
   }
-
-  // mood(emot)
-  // {
-  //     var link  = "../php/tab1.php";
-  //     var body = JSON.stringify({emot: emot});
-  
-  //     alert("DATA: "+body);
-  
-  //     this.http.post(link, body)
-  //     .subscribe(data => {
-  //          console.log("DATA:", data);
-  //     },
-  //          err => {
-  //          console.log("ERROR!: ", err);
-  //          alert(err);
-  //     });
-  // }
-
-uploadData(files: FileList){
-    console.log(files);
-    if(files && files.length > 0) {
-       let file : File = files.item(0); 
-         console.log(file.name);
-         console.log(file.size);
-         console.log(file.type);
-         let reader: FileReader = new FileReader();
-         reader.readAsText(file);
-         reader.onload = (e) => {
-            let csv: string = reader.result as string;
-            console.log(csv);
-         }
-      }
-  }
-
 }

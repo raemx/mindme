@@ -6,6 +6,7 @@ import { Tab1Page } from './tab1.page';
 import { Chart } from 'chart.js';
 import { Tab1PageRoutingModule } from './tab1-routing.module';
 import { Papa } from 'ngx-papaparse';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 //import { PapaParseModule } from 'ngx-papaparse';
 
 @NgModule({
@@ -13,9 +14,9 @@ import { Papa } from 'ngx-papaparse';
     IonicModule,
     CommonModule,
     FormsModule,
+    HttpClientModule,
     Tab1PageRoutingModule,
     //PapaParseModule,
-    Chart
   ],
   declarations: [Tab1Page]
 })

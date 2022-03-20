@@ -2,6 +2,19 @@
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from "@angular/core";
 import { Chart } from "chart.js";
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
+// import { pandas } from pandas;
+
+// activitydf = pd.read_csv('../csv/activity.csv')
+// sleepdf = pd.read_csv('../csv/sleep.csv')
+// datadf = pd.read_csv('../csv/data.csv')
+
+// sleepdf['day'] = pd.to_datetime(sleepdf['End']).dt.date #day finished sleeping
+// sleepdf['day'] = sleepdf['day'].to_string()
+// sleepdf['starttime'] = pd.to_datetime(sleepdf['Start']).dt.time #time began sleeping
+// sleepdf.rename(columns={'Sleep quality': 'sleepquality','Time in bed': 'timeinbed','Wake up': 'wakeup','Sleep Notes': 'sleepnotes', 'Heart rate':'heartrate', 'Activity (steps)':'steps'}, inplace=True)
+
+
+// activitydf.rename(columns={'Minutes Sedentary': 'minsed', 'Steps': 'steps', 'Day': 'day'}
 
 @Component({
   selector: 'app-tab2',
@@ -39,7 +52,7 @@ export class Tab2Page implements OnInit {
         datasets: [
           {
             label: "# of Votes",
-            data: [12, 19, 3, 5, 2, 3],
+            //data: this.activitydf.day,
             backgroundColor: [
               "rgba(255, 99, 132, 0.2)",
               "rgba(54, 162, 235, 0.2)",

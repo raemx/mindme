@@ -6,19 +6,17 @@
   </ion-toolbar>
 </ion-header>
 
- <ion-slide-box>
-           <ion-slide>
 <ion-content>
   
   <!-- Mood , Have multiple style questions  -->
-  <ion-card class="ion-padding">
+  <ion-card height="100%" class="ion-padding">
     HOW ARE YOU FEELING TODAY? 
   </ion-card>
 
 <!-- Grid arrangement for emotion input, recommendation and stat overview -->
   <ion-grid>
     <!-- Row for emotion - button directs to journal entry , gives suggestion-->
-    <ion-row id="emotion" class="ion-padding" >
+    <ion-row height="100%" id="emotion" class="ion-padding" >
       
       <ion-col>
         <ion-button name="emot" value="happy" (click)= "mood()" color="success">
@@ -48,6 +46,8 @@
           <ion-card>
             <ion-card-header>This Week's Mood </ion-card-header>
             <ion-card-content>
+              <canvas #barCanvas ></canvas>
+            </ion-card-content>
           </ion-card>
            <ion-card class="ion-padding">
           How do you feel! Click to see more about your mood.
@@ -57,7 +57,7 @@
 
      <!-- POINT -->
      <ion-card class="ion-padding">
-       YOU HAVE GOT: <? php $row="points" ?> POINTS! KEEP IT UP.
+       YOU HAVE GOT: ? php $row="points"  POINTS! KEEP IT UP.
        <br><br>This is how you're doing:
     </ion-card>
 
@@ -66,7 +66,7 @@
       <ion-card >
         <ion-card-header> This Week's Points </ion-card-header>
         <ion-card-content>
-          <canvas #barCanvas></canvas>
+          <canvas #lineCanvas ></canvas>
         </ion-card-content>
       </ion-card>
       <ion-card class="ion-padding">
@@ -78,5 +78,6 @@
   </ion-grid>
 </ion-content>
 
-</ion-slide>
-</ion-slide-box>
+<python>
+
+</python>
