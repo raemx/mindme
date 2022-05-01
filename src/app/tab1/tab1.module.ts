@@ -1,4 +1,4 @@
-import { IonicModule } from '@ionic/angular';
+import { IonicModule} from '@ionic/angular';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -7,11 +7,14 @@ import { Chart } from 'chart.js';
 import { Tab1PageRoutingModule } from './tab1-routing.module';
 import { Papa } from 'ngx-papaparse';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
+//import { IonicPageModule } from 'ionic-angular';
+
 //import { PapaParseModule } from 'ngx-papaparse';
 
 @NgModule({
   imports: [
     IonicModule,
+    //IonicPageModule.forChild(Tab1Page),
     CommonModule,
     FormsModule,
     HttpClientModule,

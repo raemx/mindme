@@ -1,12 +1,13 @@
-<ion-header [translucent]="true" class="ion-padding">
+<ion-header  class="ion-padding">
   <ion-toolbar>
     <ion-title>
-      Hi <? php $row["firstname"] $row["lastname"] ?>!
-      <br>
       Here are today's resources:
     </ion-title>
   </ion-toolbar>
 </ion-header>
+
+<ion-content>
+<ion-row >
 
   <ion-row>
     <ion-col>
@@ -29,14 +30,4 @@
       </ion-card>
     </ion-col>
   </ion-row>
-  
-  <ion-row >
-    <ion-col>
-      <ion-card>
-        <ion-card-header> Todays Discussions </ion-card-header>
-        <ion-card-content>
-          Click to go to this discussion
-        </ion-card-content>
-      </ion-card>
-    </ion-col>
-  </ion-row>
+</ion-content>

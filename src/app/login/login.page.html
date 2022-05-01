@@ -3,6 +3,7 @@
 <ion-content>
   <!-- logo top left -->
   <div class="flex-center">
+    <!-- <form [formGroup]="form"> -->
     <ion-card>
       <ion-card-header>
         <ion-card-title color="tertiary">MIND ME</ion-card-title>
@@ -11,18 +12,26 @@
       <ion-card-content>
         <ion-item>
           <ion-label position="floating">EMAIL</ion-label>
-          <ion-input type="email" ></ion-input>
+          <ion-input type="email" name="email" #email></ion-input>
         </ion-item>
+        <!-- <ion-label color="danger" *ngif="form.get('email').touched && form.get('email').errors?.required">Email Required</ion-label>
+        <ion-label color="danger" *ngif="form.get('email').touched && form.get('email').errors?.email">Invalid Email</ion-label> -->
+
         <ion-item>
           <ion-label position="floating">PASSWORD</ion-label>
-          <ion-input type="password" ></ion-input>
+          <ion-input type="password" name="password" #password></ion-input>
         </ion-item>
-        <ion-button color="tertiary" size="full" (click)="login()">Login</ion-button>
+        <!-- <ion-label color="danger" *ngIf="form.get('password').touched && form.get('password').errors?.required">Email Required</ion-label>
+        <ion-label color="danger" *ngIf="form.get('password').touched && form.get('password').errors?.password">Invalid Email</ion-label> -->
+        <!-- [disabled]="!form.valid" -->
+        <ion-button color="tertiary" size="full"  id="loginButton" (click)="login()">Login</ion-button>
         <ion-button color="tertiary" fill="clear" size="full" (click)="register()" >Register</ion-button>
-        <ion-button color="medium" fill="clear" size="full">forgotten username or password</ion-button>
+        <!-- <ion-button color="medium" fill="clear" (click)="forgotEmailPassword()" id="recoverPasswordButton" size="full" [disabled]="!form.get('email').valid">forgotten email or password</ion-button> -->
       </ion-card-content>
     </ion-card>
+
   </div>
+  
 </ion-content>
 
 <ion-footer>

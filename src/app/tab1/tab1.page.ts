@@ -1,226 +1,160 @@
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from "@angular/core";
-import { Chart } from "chart.js";
-import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { Papa} from "ngx-papaparse";
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { NavController } from '@ionic/angular';
+import { ApiService } from "../api.service";
+import { Tab1Service, Type } from '../services/tab1.service';
+import { Observable } from "rxjs";
+import { PostProvider } from 'src/providers/post-provider';
+import { IonicModule, ToastController } from '@ionic/angular';
+import { Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
+import {  NavController, NavParams, LoadingController } from '@ionic/angular';
+import { RouterOutlet,  ActivationStart } from '@angular/router';
+import { Push, PushObject, PushOptions } from '@awesome-cordova-plugins/push/ngx';
+import { LocalNotifications } from '@awesome-cordova-plugins/local-notifications/ngx';
 
+
+//@IonicPage()
 @Component({
   selector: 'app-tab1',
   templateUrl: 'tab1.page.html',
   styleUrls: ['tab1.page.scss'],
+  providers: [NavParams, LocalNotifications, Push]
 
-  // template: `
-  //   <form [formGroup]="todo" (ngSubmit)="logForm()">
-  //     <ion-item>
-  //       <ion-label>Todo</ion-label>
-  //       <ion-input type="text" formControlName="title"></ion-input>
-  //     </ion-item>
-  //     <ion-item>
-  //       <ion-label>Description</ion-label>
-  //       <ion-textarea formControlName="description"></ion-textarea>
-  //     </ion-item>
-  //     <button ion-button type="submit" [disabled]="!todo.valid">Submit</button>
-  //   </form>`
 })
 
 export class Tab1Page implements OnInit {
-
-  //data = '...csv';
+  emot: any;
+  users: any = [];
+  pyths: any = [];
+  recoms: any = [];
+  data: any;
+  email:any;
+  id: any;
+  
 
   @ViewChild("barCanvas", {static: true}) barCanvas: ElementRef;
-  @ViewChild("doughnutCanvas",  {static: true}) doughnutCanvas: ElementRef;
-  @ViewChild("lineCanvas", {static: true}) lineCanvas: ElementRef;
+  @ViewChild(RouterOutlet) outlet: RouterOutlet;
 
   private barChart: Chart;
-  private doughnutChart: Chart;
-  private lineChart: Chart;
-
-   /**
-    * @name items
-    * @type {Array} 
-    * @public
-    * @description     Used to store returned PHP data
-    */
-    public items : Array<any> = [];
 
 
-
-    constructor(public navCtrl: NavController, 
-                public http   : HttpClient) 
-    {
- 
-    }
-  
- 
-    /**
-     * Triggered when template view is about to be entered
-     * Returns and parses the PHP data through the mood() method
-     *
-     * @public
-     * @method ionViewWillEnter 
-     * @return {None}
-     */
-    ionViewWillEnter() : void
-    {
-       this.mood();
-    }
- 
- 
- 
- 
-    /**
-     * Retrieve the JSON encoded data from the remote server
-     * Using Angular's Http class and an Observable - then
-     * assign this to the items array for rendering to the HTML template
-     *
-     * @public
-     * @method mood 
-     * @return {None}
-     */
-    mood() : void
-    {
-       this.http
-       .get('http://localhost:8100/tabs/mood.php')
-       .subscribe((data : any) => 
-       {
-          console.dir(data);
-          this.items = data;			
-       },
-       (error : any) =>
-       {
-          console.dir(error);
-       });
-    }
- 
- 
- 
- 
-    /**
-     * Allow navigation to the Tab1Page for creating a new entry
-     *
-     * @public
-     * @method addEntry 
-     * @return {None}
-     */
-    addEntry() : void
-    {
-       this.navCtrl.navigateForward('Tab1Page');
-    }
- 
- 
- 
-    
-    /**
-     * Allow navigation to the AddTechnologyPage for amending an existing entry
-     * (We supply the actual record to be amended, as this method's parameter, 
-     * to the AddTechnologyPage
-     *
-     * @public
-     * @method viewEntry
-     * @param param 		{any} 			Navigation data to send to the next page 
-     * @return {None}
-     */
-    viewEntry(param : any) : void
-    {
-       this.navCtrl.navigateForward('Tab1Page', param);
-    }
- 
-
-  ngOnInit() {
-
-    this.barChart = new Chart(this.barCanvas.nativeElement, {
-      type: "bar",
-      data: {
-        labels:  ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
-        datasets: [
-          {
-            label: "# of Votes",
-            data: [12, 19, 3, 5, 2, 3],
-            backgroundColor: [
-              "rgba(255, 99, 132, 0.2)",
-              "rgba(54, 162, 235, 0.2)",
-              "rgba(255, 206, 86, 0.2)",
-              "rgba(75, 192, 192, 0.2)",
-              "rgba(153, 102, 255, 0.2)",
-              "rgba(255, 159, 64, 0.2)"
-            ],
-            borderColor: [
-              "rgba(255,99,132,1)",
-              "rgba(54, 162, 235, 1)",
-              "rgba(255, 206, 86, 1)",
-              "rgba(75, 192, 192, 1)",
-              "rgba(153, 102, 255, 1)",
-              "rgba(255, 159, 64, 1)"
-            ],
-            borderWidth: 1
-          }
-        ]
-      },
-      options: {
-        scales: {
-          yAxes: [
-            {
-              ticks: {
-                beginAtZero: true
-              }
-            }
-          ]
-        }
-      }
-    });
-    // this.doughnutChart = new Chart(this.doughnutCanvas.nativeElement, {
-    //   type: "doughnut",
-    //   data: {
-    //     labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
-    //     datasets: [
-    //       {
-    //         label: "# of Votes",
-    //         data: [12, 19, 3, 5, 2, 3],
-    //         backgroundColor: [
-    //           "rgba(255, 99, 132, 0.2)",
-    //           "rgba(54, 162, 235, 0.2)",
-    //           "rgba(255, 206, 86, 0.2)",
-    //           "rgba(75, 192, 192, 0.2)",
-    //           "rgba(153, 102, 255, 0.2)",
-    //           "rgba(255, 159, 64, 0.2)"
-    //         ],
-    //         hoverBackgroundColor: ["#FF6384", "#36A2EB", "#FFCE56", "#FF6384", "#36A2EB", "#FFCE56"]
-    //       }
-    //     ]
-    //   }
-    // });
-    this.lineChart = new Chart(this.lineCanvas.nativeElement, {
-      type: "line",
-      data: {
-        labels: ["January", "February", "March", "April", "May", "June", "July"],
-        datasets: [
-          {
-            label: "My First dataset",
-            fill: false,
-            lineTension: 0.1,
-            backgroundColor: "rgba(75,192,192,0.4)",
-            borderColor: "rgba(75,192,192,1)",
-            borderCapStyle: "butt",
-            borderDash: [],
-            borderDashOffset: 0.0,
-            borderJoinStyle: "miter",
-            pointBorderColor: "rgba(75,192,192,1)",
-            pointBackgroundColor: "#fff",
-            pointBorderWidth: 1,
-            pointHoverRadius: 5,
-            pointHoverBackgroundColor: "rgba(75,192,192,1)",
-            pointHoverBorderColor: "rgba(220,220,220,1)",
-            pointHoverBorderWidth: 2,
-            pointRadius: 1,
-            pointHitRadius: 10,
-            data: [65, 59, 80, 81, 56, 55, 40],
-            spanGaps: false
-          }
-        ]
-      }
-    });
-
+  constructor(public navCtrl: NavController, 
+              public http   : HttpClient,
+              private tab1Service: Tab1Service,
+              private router: Router, 
+              private postPvdr: PostProvider, 
+              public toastCtrl: ToastController, 
+              public apiservice: ApiService,
+              private route: ActivatedRoute,
+              public navParams: NavParams,
+              public loadingCtrl: LoadingController,
+              private localNotif: LocalNotifications,
+              private push: Push
+  ) 
+  {
+    //this.getUser();
+    this.email = this.navParams.get('email');
   }
+
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad Tab1Page');
+  }
+
+
+  async ngOnInit() {
+   
+
+    this.email = this.navParams.get('email');
+    this.id = 1
+    
+    var headers = new Headers();
+    headers.append("Accept", 'application/json');
+    headers.append('Content-Type', 'application/json' );
+    let options = ({ headers: headers });
+
+    let data = {
+     // email: this.email
+     id: this.id
+  };
+
+  let loader = this.loadingCtrl.create({
+    message: 'Processing please wait...',
+    });    
+
+  (await loader).present().then(() => {
+  this.http.post('http://localhost/project/api/config/retrieveuser.php',data)
+  .subscribe(async res => {
+    console.log(res);
+  (await loader).dismiss()
+     
+    this.users=res
+    
+    console.log(this.users);
+    });
+    });
+
+
+    (await loader).present().then(() => {
+      this.http.post('http://localhost/project/api/config/retrieverecom.php',data)
+      .subscribe(async res => {
+        console.log(res);
+      (await loader).dismiss()
+         
+        this.recoms=res
+        
+        console.log(this.recoms);
+        });
+        });
+
+        (await loader).present().then(() => {
+          this.http.post('http://localhost/project/api/config/retrievepoints.php',data)
+          .subscribe(async res => {
+            console.log(res);
+          (await loader).dismiss()
+             
+            this.pyths=res
+            
+            console.log(this.pyths);
+            });
+            });
+
+   }
+
+addMood(){
+  
+  let data = {
+  emot: this.emot 
+  }
+  
+  this.apiservice.addMood(data).subscribe((res:any)=> {
+    this.emot = "";
+    console.log("SUCCESS===",res);
+    //this.getUser();
+  },(error: any) =>{
+    console.log("ERROR ===",error);
+  })
+}
+
+nextpage() {
+  this.navCtrl.navigateRoot(['/tabs/tab2']);
+}
+
+
+
+  // getUser(){
+   
+  //   this.apiservice.getUser().subscribe((res:any)=> {
+  //     console.log("SUCCESS===",res);
+  //     this.users = res;
+  //   },(error: any) =>{
+  //     console.log("ERROR ===",error);
+  //   })
+  // }
+
+//   this.sub = this.route.params.subscribe(params => {
+//     this.data = params['data']; 
+// });
+
+
 }

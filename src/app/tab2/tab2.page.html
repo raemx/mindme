@@ -1,45 +1,70 @@
 <!-- Row for small graph trends -->
 
+<ion-content>
 <ion-grid>
 <ion-row id="stats" class="ion-padding">
   <ion-col>
     <ion-card>
-      <ion-card-header> Bar Chart </ion-card-header>
+      <ion-card-header>Mood</ion-card-header>
       <ion-card-content>
-        <canvas ></canvas>
+        <ion-img src="assets/img/mood7.png"></ion-img>
       </ion-card-content>
     </ion-card>
-  </ion-col>
   <ion-card class="ion-padding">
-  More Information about mood pattern. Recommendation and resources based on Mood, potentially other factors.
+    <ion-item *ngFor="let msg of msgs" >
+      {{msg.msgm}}
+      </ion-item>
+      <ion-button (click)="nextpage()">
+        More Resources for Mood Regulation
+           </ion-button>
   </ion-card>
+</ion-col>
 </ion-row>
 
 <ion-row id="stats" class="ion-padding">
   <ion-col>
     <ion-card>
-      <ion-card-header> Line Chart </ion-card-header>
+      <ion-card-header>Activity</ion-card-header>
       <ion-card-content>
-        <canvas ></canvas>
+        <ion-img src="assets/img/activity7.png"></ion-img>
       </ion-card-content>
     </ion-card>
     <ion-card class="ion-padding">
-      More Information about sleep/diet/activity pattern. Recommendation and resources, potentially other factors.
+      <ion-item *ngFor="let msg of msgs" >
+        {{msg.msgw}}
+          {{msg.predmsgw}}
+          </ion-item>
+      <ion-item *ngFor="let reco of recomsW" >
+        {{reco.NHS}}
+        </ion-item> 
+        <ion-button (click)="nextpage()">
+          More Resources for Activity
+             </ion-button>
     </ion-card>
   </ion-col>
 </ion-row>
 
-<ion-row>
+<ion-row  id="stats" class="ion-padding">
   <ion-col>
     <ion-card>
-      <ion-card-header> Doughnut Chart </ion-card-header>
+      <ion-card-header>Sleep </ion-card-header>
       <ion-card-content>
-        <canvas #doughnutCanvas></canvas>
+        <ion-img src="assets/img/sleep7.png"></ion-img>
       </ion-card-content>
     </ion-card>
-  </ion-col>
   <ion-card class="ion-padding">
-    More Information about sleep/diet/activity pattern. Recommendation and resources, potentially other factors.
+    <ion-item *ngFor="let msg of msgs" >
+      {{msg.msgsl}}
+        {{msg.predmsgs}}
+        </ion-item>
+    <ion-item *ngFor="let rec of recomsS" >
+      {{rec.NHS}}
+      </ion-item> 
+      <ion-button (click)="nextpage()">
+        More Resources for Sleep
+           </ion-button>
   </ion-card>
+</ion-col>
 </ion-row>
 </ion-grid>
+</ion-content>

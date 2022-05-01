@@ -1,25 +1,78 @@
 <ion-header [translucent]="true" class="ion-padding">
   <ion-toolbar>
     <ion-title>
-      Join the discussion <? php $row["firstname"] $row["lastname"] ?>!
+      Join the discussion!
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
+<!-- <ion-item *ngFor="let dis of discussions" > -->
 <ion-row >
   <ion-col id="stats" class="ion-padding">
     <ion-card>
-      <ion-card-header>This Week's Discussion </ion-card-header>
+      <ion-card-header> Mind Discussion </ion-card-header>
       <ion-card-content>
-        <canvas #barCanvas></canvas>
+          <!-- {{dis.discussionid}} --> 
+        <!-- <ion-item *ngFor="let c of dis" >
+          {{c.comment}}
+        </ion-item>    -->
+        --------- Comments ---------
       </ion-card-content>
     </ion-card>
      <ion-card class="ion-padding">
        <ion-card-content>
-      <ion-item>
-        <ion-label>Post a comment</ion-label>
-        <ion-input></ion-input>
-      </ion-item>
+          <ion-label position="floating">Post Comment</ion-label>
+          <ion-input [(ngModel)]="comment" type="text" ></ion-input>
+          <ion-input [(ngModel)]="discussionid" type="text" disabled="true" value="mind"></ion-input>
+          <ion-button type="button" size="full" color="light" (click)="addCmt()">Post</ion-button>
+      </ion-card-content>
+  </ion-card>
+  </ion-col>
+</ion-row>
+<!-- </ion-item> -->
+
+<ion-row >
+  <ion-col id="stats" class="ion-padding">
+    <ion-card>
+      <ion-card-header> Sleep Discussion</ion-card-header>
+      <ion-card-content>
+        <!-- <ion-item *ngFor="let dis of discussions" >
+         {{dis.comment}}
+          </ion-item>  -->
+          ---------- Sleep Comments ---------
+      </ion-card-content>
+    </ion-card>
+     <ion-card class="ion-padding">
+       <ion-card-content>
+          <ion-label position="floating">Post Comment</ion-label>
+          <ion-input [(ngModel)]="comment" type="text" ></ion-input>
+          <ion-input [(ngModel)]="discussionid" type="text" disabled="true" value="sleep"></ion-input>
+          <ion-button type="button" size="full" color="light" (click)="addCmt()">Post</ion-button>
+      </ion-card-content>
+  </ion-card>
+  </ion-col>
+</ion-row>
+
+
+<ion-row >
+  <ion-col id="stats" class="ion-padding">
+    <ion-card>
+      <ion-card-header> Activity </ion-card-header>
+      <ion-card-content>
+        <!-- <ion-item *ngFor="let dis of discussions" >
+          {{dis.comment}}
+          </ion-item>  -->
+          --------- Activity Comments ---------
+      </ion-card-content>
+    </ion-card>
+     <ion-card class="ion-padding">
+       <ion-card-content>
+        <ion-item>
+          <ion-label position="floating">Post Comment</ion-label>
+          <ion-input [(ngModel)]="comment" type="text" ></ion-input>
+          <ion-input [(ngModel)]="discussionid" type="text" disabled="true" value="activity"></ion-input>
+          <ion-button type="button" size="full" color="light" (click)="addCmt()">Post</ion-button>
+        </ion-item>
       </ion-card-content>
   </ion-card>
   </ion-col>

@@ -2,6 +2,19 @@
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from "@angular/core";
 import { Chart } from "chart.js";
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { ApiService } from "../api.service";
+import { Tab1Service, Type } from '../services/tab1.service';
+import { Observable } from "rxjs";
+import { PostProvider } from 'src/providers/post-provider';
+import { IonicModule, ToastController } from '@ionic/angular';
+import { Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
+import {  NavController, NavParams, LoadingController } from '@ionic/angular';
+import { RouterOutlet,  ActivationStart } from '@angular/router';
+import { Tab3Page } from "../tab3/tab3.page";
+
 // import { pandas } from pandas;
 
 // activitydf = pd.read_csv('../csv/activity.csv')
@@ -16,20 +29,33 @@ import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 
 // activitydf.rename(columns={'Minutes Sedentary': 'minsed', 'Steps': 'steps', 'Day': 'day'}
 
+
 @Component({
   selector: 'app-tab2',
   templateUrl: 'tab2.page.html',
-  styleUrls: ['tab2.page.scss']
+  styleUrls: ['tab2.page.scss'],
+  providers: [NavParams]
 })
 
 export class Tab2Page implements OnInit {
   @ViewChild("barCanvas", {static: true}) barCanvas: ElementRef;
   @ViewChild("doughnutCanvas",  {static: true}) doughnutCanvas: ElementRef;
   @ViewChild("lineCanvas", {static: true}) lineCanvas: ElementRef;
+  @ViewChild(RouterOutlet) outlet: RouterOutlet;
 
   private barChart: Chart;
   private doughnutChart: Chart;
   private lineChart: Chart;
+  users: any = [];
+  pyths: any = [];
+  recomsS: any = [];
+  recomsW: any = [];
+  data: any;
+  email:any;
+  id: any;
+  msgs: any = [];
+
+
   // private todo : FormGroup;
 
   // constructor( private formBuilder: FormBuilder ) {
@@ -42,100 +68,95 @@ export class Tab2Page implements OnInit {
   //   console.log(this.todo.value)
   // }
   
-  constructor(){}
+  constructor(public navCtrl: NavController, 
+    public http   : HttpClient,
+    private tab1Service: Tab1Service,
+    private router: Router, 
+    private postPvdr: PostProvider, 
+    public toastCtrl: ToastController, 
+    public apiservice: ApiService,
+    private route: ActivatedRoute,
+    public navParams: NavParams,
+    public loadingCtrl: LoadingController){}
 
-  ngOnInit() {
-    this.barChart = new Chart(this.barCanvas.nativeElement, {
-      type: "bar",
-      data: {
-        labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
-        datasets: [
-          {
-            label: "# of Votes",
-            //data: this.activitydf.day,
-            backgroundColor: [
-              "rgba(255, 99, 132, 0.2)",
-              "rgba(54, 162, 235, 0.2)",
-              "rgba(255, 206, 86, 0.2)",
-              "rgba(75, 192, 192, 0.2)",
-              "rgba(153, 102, 255, 0.2)",
-              "rgba(255, 159, 64, 0.2)"
-            ],
-            borderColor: [
-              "rgba(255,99,132,1)",
-              "rgba(54, 162, 235, 1)",
-              "rgba(255, 206, 86, 1)",
-              "rgba(75, 192, 192, 1)",
-              "rgba(153, 102, 255, 1)",
-              "rgba(255, 159, 64, 1)"
-            ],
-            borderWidth: 1
-          }
-        ]
-      },
-      options: {
-        scales: {
-          yAxes: [
-            {
-              ticks: {
-                beginAtZero: true
-              }
-            }
-          ]
-        }
-      }
+  async ngOnInit() {
+    this.router.events.subscribe(e => {
+      if (e instanceof ActivationStart && e.snapshot.outlet === "administration")
+        this.outlet.deactivate();
     });
-    this.doughnutChart = new Chart(this.doughnutCanvas.nativeElement, {
-      type: "doughnut",
-      data: {
-        labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
-        datasets: [
-          {
-            label: "# of Votes",
-            data: [12, 19, 3, 5, 2, 3],
-            backgroundColor: [
-              "rgba(255, 99, 132, 0.2)",
-              "rgba(54, 162, 235, 0.2)",
-              "rgba(255, 206, 86, 0.2)",
-              "rgba(75, 192, 192, 0.2)",
-              "rgba(153, 102, 255, 0.2)",
-              "rgba(255, 159, 64, 0.2)"
-            ],
-            hoverBackgroundColor: ["#FF6384", "#36A2EB", "#FFCE56", "#FF6384", "#36A2EB", "#FFCE56"]
-          }
-        ]
-      }
+
+    this.email = this.navParams.get('email');
+    this.id = 1
+    
+    var headers = new Headers();
+    headers.append("Accept", 'application/json');
+    headers.append('Content-Type', 'application/json' );
+    let options = ({ headers: headers });
+
+    let data = {
+     // email: this.email
+     id: this.id
+  };
+
+  let loader = this.loadingCtrl.create({
+    message: 'Processing please wait...',
+    });    
+
+  (await loader).present().then(() => {
+  this.http.post('http://localhost/project/api/config/retrieveuser.php',data)
+  .subscribe(async res => {
+    console.log(res);
+  (await loader).dismiss()
+     
+    this.users=res
+    
+    console.log(this.users);
     });
-    this.lineChart = new Chart(this.lineCanvas.nativeElement, {
-      type: "line",
-      data: {
-        labels: ["January", "February", "March", "April", "May", "June", "July"],
-        datasets: [
-          {
-            label: "My First dataset",
-            fill: false,
-            lineTension: 0.1,
-            backgroundColor: "rgba(75,192,192,0.4)",
-            borderColor: "rgba(75,192,192,1)",
-            borderCapStyle: "butt",
-            borderDash: [],
-            borderDashOffset: 0.0,
-            borderJoinStyle: "miter",
-            pointBorderColor: "rgba(75,192,192,1)",
-            pointBackgroundColor: "#fff",
-            pointBorderWidth: 1,
-            pointHoverRadius: 5,
-            pointHoverBackgroundColor: "rgba(75,192,192,1)",
-            pointHoverBorderColor: "rgba(220,220,220,1)",
-            pointHoverBorderWidth: 2,
-            pointRadius: 1,
-            pointHitRadius: 10,
-            data: [65, 59, 80, 81, 56, 55, 40],
-            spanGaps: false
-          }
-        ]
-      }
     });
-  }
+
+
+  (await loader).present().then(() => {
+    this.http.post('http://localhost/project/api/config/retrieverecomS.php',data)
+    .subscribe(async res => {
+      console.log(res);
+    (await loader).dismiss()
+        
+      this.recomsS=res
+      
+      console.log(this.recomsS);
+      });
+      });
+
+  (await loader).present().then(() => {
+    this.http.post('http://localhost/project/api/config/retrieverecomW.php',data)
+    .subscribe(async res => {
+      console.log(res);
+    (await loader).dismiss()
+        
+      this.recomsW=res
+      
+      console.log(this.recomsW);
+      });
+      });
+
+  (await loader).present().then(() => {
+    this.http.post('http://localhost/project/api/config/retrievemsg.php',data)
+    .subscribe(async res => {
+      console.log(res);
+    (await loader).dismiss()
+        
+      this.msgs=res
+      
+      console.log(this.msgs);
+      });
+      });
+
+
+}
+
+
+nextpage() {
+  this.navCtrl.navigateRoot(['/tabs/tab3']);
+}
 
 }

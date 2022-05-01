@@ -5,7 +5,17 @@ ion-button, ion-card {
     display: grid;
 }
 
+ion-card{
+    --ion-text-color: #5764c7;
+}
+
 ion-content, ion-grid{
     height: 100%;
     width: 100%;
+    --background: var(--ion-color-tertiary);
+}
+
+.wrapping-list .item-content, .wrapping-list .item {
+    overflow: initial;
+    white-space: initial;
 }

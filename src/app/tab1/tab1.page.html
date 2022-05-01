@@ -1,14 +1,16 @@
-<ion-header [translucent]="true" class="ion-padding">
+<ion-header class="ion-padding">
   <ion-toolbar>
-    <ion-title>
-      Hi <? php $row["firstname"] $row["lastname"] ?>!
+    <ion-title >
+      <ion-item *ngFor="let user of users" >
+        Hi {{user.name}} {{user.name2}} !
+        </ion-item> 
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   
-  <!-- Mood , Have multiple style questions  -->
+  <!-- addMood , Have multiple style questions  -->
   <ion-card height="100%" class="ion-padding">
     HOW ARE YOU FEELING TODAY? 
   </ion-card>
@@ -16,68 +18,78 @@
 <!-- Grid arrangement for emotion input, recommendation and stat overview -->
   <ion-grid>
     <!-- Row for emotion - button directs to journal entry , gives suggestion-->
-    <ion-row height="100%" id="emotion" class="ion-padding" >
-      
-      <ion-col>
-        <ion-button name="emot" value="happy" (click)= "mood()" color="success">
-          <ion-icon name="happy-outline"></ion-icon>
+      <ion-row height="100%" id="emotion" class="ion-padding" >
+        <ion-col>
+        <ion-button [(ngModel)]="emot" (click)=" addMood()" value="1"  color="success">
+          <ion-icon  name="happy-outline"></ion-icon>
         </ion-button>
       </ion-col>
       <ion-col>
-        <ion-button name="emot" value="ok" (click)= "mood()" color="warning">
-          <ion-icon name="happy-outline"></ion-icon>
+        <ion-button [(ngModel)]="emot" (click)=" addMood()" value="0"  color="warning">
+          <ion-icon name="ok-outline"></ion-icon>
         </ion-button>
       </ion-col>
       <ion-col>
-        <ion-button name="emot" value="sad" (click)= "mood()" color="danger">
+        <ion-button [(ngModel)]="emot" (click)=" addMood()" value="-1"  color="danger">
           <ion-icon name="sad-outline"></ion-icon> 
         </ion-button>
       </ion-col>
     </ion-row>
     
     <!-- Recommendation -->
-      <ion-card class="ion-padding">
-        DAILY RECOMMENDATION: 
-      </ion-card>
-
+       <ion-item class="wrapping-list" *ngFor="let recom of recoms" >
+             {{recom.NHS}}
+            </ion-item> 
+        <!-- <p>{{{recommendations.rmdn}}</p>  -->
+      
       <!-- Row for small graph trends -->
       <ion-row >
         <ion-col id="stats" class="ion-padding">
           <ion-card>
-            <ion-card-header>This Week's Mood </ion-card-header>
             <ion-card-content>
-              <canvas #barCanvas ></canvas>
+              <ion-img src="assets/img/mood7.png" width="80" height="80"></ion-img>
             </ion-card-content>
           </ion-card>
-           <ion-card class="ion-padding">
+             <ion-button (click)="nextpage()">
           How do you feel! Click to see more about your mood.
-        </ion-card>
+             </ion-button>
         </ion-col>
       </ion-row>
 
      <!-- POINT -->
+     <ion-row >
      <ion-card class="ion-padding">
-       YOU HAVE GOT: ? php $row="points"  POINTS! KEEP IT UP.
-       <br><br>This is how you're doing:
+        <ion-item *ngFor="let pyth of pyths" >
+          <p>YOU HAVE GOT: {{pyth.points}} points this week!</p>
+        </ion-item> 
     </ion-card>
-
-    <ion-row>
-    <ion-col id="stats" class="ion-padding">
-      <ion-card >
-        <ion-card-header> This Week's Points </ion-card-header>
-        <ion-card-content>
-          <canvas #lineCanvas ></canvas>
-        </ion-card-content>
-      </ion-card>
-      <ion-card class="ion-padding">
-        Click to see what your points can get you!
-      </ion-card>
-    </ion-col>
   </ion-row>
+  <ion-row >
+    <ion-card class="ion-padding">
+       <ion-item *ngFor="let pyth of pyths" >
+         <p>YOUR TOTAL POINTS IS {{pyth.points7}} . See what you can get:</p>
+       </ion-item> 
+   </ion-card>
+ </ion-row>
+
+ <ion-card class="ion-padding">
+  <ion-row height="100%"  class="ion-padding" >
+    <ion-col>
+    <p>100 POINTS GETS YOU: </p>
+  </ion-col>
+</ion-row>
+<ion-row height="100%"  class="ion-padding" >
+  <ion-col>
+  <p>1000 POINTS GETS YOU: </p>
+</ion-col>
+</ion-row>
+<ion-row height="100%"  class="ion-padding" >
+  <ion-col>
+  <p>10000 POINTS GETS YOU: </p>
+</ion-col>
+</ion-row>
+</ion-card>
 
   </ion-grid>
 </ion-content>
 
-<python>
-
-</python>
