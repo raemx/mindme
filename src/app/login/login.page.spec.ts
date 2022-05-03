@@ -32,20 +32,20 @@ describe('LoginPage', () => {
       imports: [
         IonicModule.forRoot(), 
         AppRoutingModule,
-        ReactiveFormsModule,
-        StoreModule.forRoot([]),
-        StoreModule.forFeature("loading", loadingReducer),
-        StoreModule.forFeature("login", loginReducer)
+        //ReactiveFormsModule,
+        //StoreModule.forRoot([]),
+        //StoreModule.forFeature("loading", loadingReducer),
+        //StoreModule.forFeature("login", loginReducer)
       ]
     }).compileComponents();
 
     fixture = TestBed.createComponent(LoginPage);
     router = TestBed.inject(Router);
-    store = TestBed.inject(Store);
-    toastController = TestBed.inject(ToastController);
+    // store = TestBed.inject(Store);
+    // toastController = TestBed.inject(ToastController);
     component = fixture.componentInstance;
-    page = fixture.debugElement.nativeElement;
-    authService = TestBed.inject(AuthService);
+    // page = fixture.debugElement.nativeElement;
+    // authService = TestBed.inject(AuthService);
     fixture.detectChanges();
   }));
 

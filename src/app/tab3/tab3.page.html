@@ -1,5 +1,5 @@
 <ion-header  class="ion-padding">
-  <ion-toolbar>
+  <ion-toolbar color="primary">
     <ion-title>
       Here are today's resources:
     </ion-title>
@@ -7,14 +7,104 @@
 </ion-header>
 
 <ion-content>
-<ion-row >
+
+  <ion-searchbar [(ngModel)]="searchTerm" (ionChange)="searchChanged($event)"></ion-searchbar>
+  <ion-item>
+    <ion-label>Select Searchtype</ion-label>
+    <ion-select [(ngModel)]="type" (ionChange)="searchChanged($event)">
+      <ion-select-option value="topicId">TOPIC ID</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-list>
+ 
+    <ion-item button *ngFor="let item of (results | async)" [routerLink]="['/', 'TopicId', item.TopicId]">
+  
+ 
+      <ion-label text-wrap>
+        <h3>{{ item.TopicId }}</h3>
+        {{ item.Year }}
+      </ion-label>
+
+      <ion-table>
+        <thead><tr><th>Id</th><th>English Topic</th></tr></thead>
+        <tbody data-api-type="topic" data-api-lang="en" >
+      </ion-table>
+      
+      <ion-table>
+        <thead><tr><th>Id</th><th>Spanish Topic</th></tr></thead>
+        <tbody data-api-type="topic" data-api-lang="es" >
+      </ion-table>
+      
+      <ion-table>
+        <thead><tr><th>Id</th><th>English Category</th></tr></thead>
+        <tbody data-api-type="category" data-api-lang="en" >
+      </ion-table>
+      
+      <ion-table>
+        <thead><tr><th>Id</th><th>Spanish Category</th></tr></thead>
+        <tbody data-api-type="category" data-api-lang="es" >
+      </ion-table>
+
+      <script>
+        (function() {
+          var tbodies = document.querySelectorAll('tbody[data-api-type][data-api-lang]'), t=0;
+          function getContent () {
+            var tbody = tbodies[t];
+            var xhr = new XMLHttpRequest();
+            var url="/myhealthfinder/api/v3/itemlist.json";
+            url += "?type=" + tbody.dataset.apiType;
+            url += "&lang=" + tbody.dataset.apiLang;
+            xhr.open("GET", url);
+            xhr.send();
+            xhr.onload = function() {
+              var tr, td;
+              var response = JSON.parse(xhr.response);
+              if (++t < tbodies.length) getContent();
+              response.Result.Items.Item.forEach(function(item) {
+                tr = document.createElement("tr");
+                td = document.createElement("td");
+                td.innerHTML = item.Id;
+                tr.appendChild(td);
+                td = document.createElement("td");
+                td.innerHTML = item.Title;
+                tr.appendChild(td);
+                tbody.appendChild(tr);
+              });
+            };
+          };
+          if (tbodies.length > 0) getContent();
+        })();
+        </script>
+
+    </ion-item>
+ 
+  </ion-list>
+  
 
   <ion-row>
     <ion-col>
       <ion-card>
-        <ion-card-header> Helpful Videos </ion-card-header>
+        <ion-card-header> Helpful Activity Videos </ion-card-header>
         <ion-card-content>
-          
+          <iframe width="100%" height="315" src="https://www.youtube.com/embed/zc56U8K6mhc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </ion-card-content>
+        <ion-card-content>
+          <iframe width="100%" height="315" src="https://www.youtube.com/embed/DQBCdbV2Enc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </ion-card-content>
+        <ion-card-header> Helpful Sleep Videos </ion-card-header>
+        <ion-card-content>
+          <iframe width="100%" height="315" src="https://www.youtube.com/embed/ITibUm7mf_A" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </ion-card-content>
+        <ion-card-content>
+          <iframe width="100%" height="315" src="https://www.youtube.com/embed/TP2gb2fSYXY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </ion-card-content>
+        <ion-card-header> Helpful Mood Videos </ion-card-header>
+        <ion-card-content>
+          <iframe width="100%" height="315" src="https://www.youtube.com/embed/ZToicYcHIOU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </ion-card-content>
+        <ion-card-content>
+          <iframe width="100%" height="315" src="https://www.youtube.com/embed/-2zdUXve6fQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </ion-card-content>
       </ion-card>
     </ion-col>

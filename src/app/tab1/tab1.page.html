@@ -2,7 +2,7 @@
   <ion-toolbar>
     <ion-title >
       <ion-item *ngFor="let user of users" >
-        Hi {{user.name}} {{user.name2}} !
+        Hi {{user.name}} {{user.name2}}
         </ion-item> 
     </ion-title>
   </ion-toolbar>
@@ -50,8 +50,8 @@
               <ion-img src="assets/img/mood7.png" width="80" height="80"></ion-img>
             </ion-card-content>
           </ion-card>
-             <ion-button (click)="nextpage()">
-          How do you feel! Click to see more about your mood.
+             <ion-button >
+          How do you feel?! Navigate to Stats
              </ion-button>
         </ion-col>
       </ion-row>
@@ -59,15 +59,23 @@
      <!-- POINT -->
      <ion-row >
      <ion-card class="ion-padding">
-        <ion-item *ngFor="let pyth of pyths" >
-          <p>YOU HAVE GOT: {{pyth.points}} points this week!</p>
-        </ion-item> 
+      <ion-item *ngFor="let pyth of pyths" >
+      <p>YOUR HAVE GOT: </p>
+      <ion-text font-weight="700">
+       <h1> {{pyth.points7}} </h1>
+      </ion-text>
+        <p> points this week!</p>
+    </ion-item> 
     </ion-card>
   </ion-row>
   <ion-row >
     <ion-card class="ion-padding">
        <ion-item *ngFor="let pyth of pyths" >
-         <p>YOUR TOTAL POINTS IS {{pyth.points7}} . See what you can get:</p>
+         <p>YOUR TOTAL POINTS IS </p>
+         <ion-text font-weight="700">
+          <h1> {{pyth.points}} </h1>
+         </ion-text>
+           <p> See what you can get:</p>
        </ion-item> 
    </ion-card>
  </ion-row>
@@ -75,17 +83,17 @@
  <ion-card class="ion-padding">
   <ion-row height="100%"  class="ion-padding" >
     <ion-col>
-    <p>100 POINTS GETS YOU: </p>
+      <ion-text font-weight="700">1000 POINTS GETS YOU: Package of healthy eating</ion-text>
   </ion-col>
 </ion-row>
 <ion-row height="100%"  class="ion-padding" >
   <ion-col>
-  <p>1000 POINTS GETS YOU: </p>
+    <ion-text font-weight="700">5000 POINTS GETS YOU:  3 month free gym membership at ExampleGym</ion-text>
 </ion-col>
 </ion-row>
 <ion-row height="100%"  class="ion-padding" >
   <ion-col>
-  <p>10000 POINTS GETS YOU: </p>
+    <ion-text font-weight="700">10000 POINTS GETS YOU: Free counselling sessions for 6 months</ion-text>
 </ion-col>
 </ion-row>
 </ion-card>

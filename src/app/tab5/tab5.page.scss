@@ -1,0 +1,15 @@
+ion-button {
+
+    text-align: center;
+    margin: auto;
+    display: flex;
+    display: grid;
+}
+
+ion-content{
+    height: 100%;
+    width: 100%;
+    --background: var(--ion-color-tertiary);
+}
+
+

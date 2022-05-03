@@ -1,0 +1,27 @@
+#yes{
+    border: 1px solid #000;
+    width: 100%;
+    padding: 20px;
+        font-size: 20px;
+}
+
+ion-card-header{
+    font-size: 20px;
+    font-style: bold;
+    --ion-text-color: #5764c7; 
+}
+
+ion-card{
+    --ion-text-color: #5764c7;
+
+}
+
+ion-button{
+    width: 100%;
+}
+
+ion-content{
+    height: 100%;
+    width: 100%;
+    --background: var(--ion-color-tertiary);
+}

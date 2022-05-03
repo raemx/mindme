@@ -6,6 +6,7 @@
   </ion-toolbar>
 </ion-header>
 
+<ion-content>
 <!-- <ion-item *ngFor="let dis of discussions" > -->
 <ion-row >
   <ion-col id="stats" class="ion-padding">
@@ -21,8 +22,7 @@
     </ion-card>
      <ion-card class="ion-padding">
        <ion-card-content>
-          <ion-label position="floating">Post Comment</ion-label>
-          <ion-input [(ngModel)]="comment" type="text" ></ion-input>
+          <ion-input  id="yes" [(ngModel)]="comment" type="text" ></ion-input>
           <ion-input [(ngModel)]="discussionid" type="text" disabled="true" value="mind"></ion-input>
           <ion-button type="button" size="full" color="light" (click)="addCmt()">Post</ion-button>
       </ion-card-content>
@@ -44,8 +44,7 @@
     </ion-card>
      <ion-card class="ion-padding">
        <ion-card-content>
-          <ion-label position="floating">Post Comment</ion-label>
-          <ion-input [(ngModel)]="comment" type="text" ></ion-input>
+          <ion-input id="yes" [(ngModel)]="comment" type="text" ></ion-input>
           <ion-input [(ngModel)]="discussionid" type="text" disabled="true" value="sleep"></ion-input>
           <ion-button type="button" size="full" color="light" (click)="addCmt()">Post</ion-button>
       </ion-card-content>
@@ -68,8 +67,7 @@
      <ion-card class="ion-padding">
        <ion-card-content>
         <ion-item>
-          <ion-label position="floating">Post Comment</ion-label>
-          <ion-input [(ngModel)]="comment" type="text" ></ion-input>
+          <ion-input id="yes" [(ngModel)]="comment" type="text" ></ion-input>
           <ion-input [(ngModel)]="discussionid" type="text" disabled="true" value="activity"></ion-input>
           <ion-button type="button" size="full" color="light" (click)="addCmt()">Post</ion-button>
         </ion-item>
@@ -77,3 +75,5 @@
   </ion-card>
   </ion-col>
 </ion-row>
+
+</ion-content>

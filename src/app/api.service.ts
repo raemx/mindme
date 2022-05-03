@@ -1,5 +1,10 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http'
+
+
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
+import { retry, catchError } from 'rxjs/operators';
+
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +13,7 @@ export class ApiService {
   headers: HttpHeaders;
   //public key='27fc1238cd6c4c26b36cfb0d3c6ca863'
   
-  constructor(public http: HttpClient) { 
+  constructor(public http: HttpClient, private httpclient: HttpClient) { 
   this.headers = new HttpHeaders();
   this.headers.append("Accept", "application/json");
   this.headers.append("Content-Type", "application/json");

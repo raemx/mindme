@@ -23,11 +23,11 @@ describe('RegisterPage', () => {
 
 
 
-  it('Home after Register', ()=>{ //simulate something is happening async
-    spyOn(router, 'navigate') //test watches navigate function on router object
-    component.register();
-    expect(router.navigate).toHaveBeenCalledWith('tab1');//asks if function is called with parameter login
-  })
+  // it('Home after Register', ()=>{ //simulate something is happening async
+  //   spyOn(router, 'navigate') //test watches navigate function on router object
+  //   component.register();
+  //   expect(router.navigate).toHaveBeenCalledWith('tab1');//asks if function is called with parameter login
+  // })
 
 
 });

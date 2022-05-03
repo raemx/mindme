@@ -1,0 +1,30 @@
+ion-content{
+    --background: var(--ion-color-tertiary);
+}
+
+ion-card{
+    background-color: aquamarine;
+}
+
+.scroll-content {
+    overflow-y: hidden;
+  }
+  .card-background-page {
+    .buttons {
+      display: grid;
+      grid-template: repeat(3, 1fr) / repeat(2, 1fr);
+      height: calc(100vh - 55px); 
+    ion-card {
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+      align-items: center;
+      background-color: transparent;
+
+      img {
+        width: 80%;
+      }
+     
+    }
+}
+}

@@ -1,4 +1,6 @@
-<ion-header [translucent]="true" class="ion-padding">
+
+
+<ion-header [translucent]="true" color="dark" class="ion-padding">
   <ion-toolbar>
     <ion-title>
       Hi rae o !
@@ -6,7 +8,43 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-button color="light" (click)="logout()" >Logout</ion-button>
-<ion-button color="light" >About</ion-button>
+<ion-content>
+<ion-row >
+  <ion-col id="stats" class="ion-padding">
+    <ion-card color="medium">
+      <ion-card-content>
+<ion-button  color="medium"(click)="logout()" >Logout</ion-button>
+      </ion-card-content>
+    </ion-card>
+  </ion-col>
+</ion-row>
+
+<ion-row >
+  <ion-col id="stats" class="ion-padding">
+    <ion-card color="medium">
+      <ion-card-content>
+
+    <ion-button  color="medium" (click)="about()">
+      <ion-text >About</ion-text>
+      <ion-icon id="about" name="arrow-dropdown" slot="end"></ion-icon>
+    </ion-button>
+      MindMe is a mental health app targeting on helping users deal with their mental health throughout their lives. With resources, a community and your own personalised graphs and recommendation, you are on a path on improving your mind.
+  </ion-card-content>
+</ion-card>
+</ion-col>
+</ion-row>
+
+
+    <ion-row >
+      <ion-col id="stats" class="ion-padding">
+        <ion-card color="medium">
+          <ion-card-content>
 <!-- Opens up little box - explains security and privacy -->
-<ion-button color="light" >Help</ion-button>
+<ion-button  color="medium">Help</ion-button>
+</ion-card-content>
+</ion-card>
+</ion-col>
+</ion-row>
+
+
+</ion-content>

@@ -5,7 +5,7 @@ import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ApiService } from "../api.service";
-import { Tab1Service, Type } from '../services/tab1.service';
+
 import { Observable } from "rxjs";
 import { PostProvider } from 'src/providers/post-provider';
 import { IonicModule, ToastController } from '@ionic/angular';
@@ -70,7 +70,6 @@ export class Tab2Page implements OnInit {
   
   constructor(public navCtrl: NavController, 
     public http   : HttpClient,
-    private tab1Service: Tab1Service,
     private router: Router, 
     private postPvdr: PostProvider, 
     public toastCtrl: ToastController, 

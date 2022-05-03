@@ -1,4 +1,4 @@
-ion-button, ion-card {
+ion-button {
     text-align: center;
     margin: auto;
     display: flex;
@@ -19,3 +19,26 @@ ion-content, ion-grid{
     overflow: initial;
     white-space: initial;
 }
+
+.scroll-content {
+    overflow-y: hidden;
+  }
+  .card-background-page {
+    .buttons {
+      display: grid;
+      grid-template: repeat(3, 1fr) / repeat(2, 1fr);
+      height: calc(100vh - 55px); // i've added this number of pxls, but you can inspect and get the exact amount of the tab footer
+    }
+    ion-card {
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+      align-items: center;
+      background-color: transparent;
+
+      img {
+        width: 80%;
+      }
+     
+    }
+  }

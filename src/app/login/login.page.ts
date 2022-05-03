@@ -51,6 +51,8 @@ export class LoginPage { // Oninit, OnDestroy
     //   this.onIsLoggingIn(loginState);
     //   this.toggleLoading(loginState);
     //   })
+
+    
     this.router.events.subscribe(e => {
       if (e instanceof ActivationStart && e.snapshot.outlet === "administration")
         this.outlet.deactivate();
@@ -118,7 +120,7 @@ export class LoginPage { // Oninit, OnDestroy
 
        if(res=="Login Success"){
   
-           this.navCtrl.navigateRoot(['/tabs']);
+           this.navCtrl.navigateRoot(['/tabs/tab1']);
        }else
        {
         let alert = this.alertCtrl.create({

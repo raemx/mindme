@@ -12,10 +12,12 @@
     </ion-card>
   <ion-card class="ion-padding">
     <ion-item *ngFor="let msg of msgs" >
+      <ion-text font-weight="700" >
       {{msg.msgm}}
+    </ion-text>
       </ion-item>
       <ion-button (click)="nextpage()">
-        More Resources for Mood Regulation
+        More Resources for Mood 
            </ion-button>
   </ion-card>
 </ion-col>
@@ -29,10 +31,12 @@
         <ion-img src="assets/img/activity7.png"></ion-img>
       </ion-card-content>
     </ion-card>
-    <ion-card class="ion-padding">
+    <ion-card font-weight="700" class="ion-padding">
       <ion-item *ngFor="let msg of msgs" >
-        {{msg.msgw}}
-          {{msg.predmsgw}}
+        <ion-text font-weight="700" >
+          <h1>{{msg.msgw}}</h1>
+          <h1>{{msg.predmsgw}}</h1>
+        </ion-text>
           </ion-item>
       <ion-item *ngFor="let reco of recomsW" >
         {{reco.NHS}}
@@ -54,8 +58,10 @@
     </ion-card>
   <ion-card class="ion-padding">
     <ion-item *ngFor="let msg of msgs" >
-      {{msg.msgsl}}
-        {{msg.predmsgs}}
+      <ion-text font-weight="700" >
+        <h1>{{msg.msgsl}}</h1>
+        <h1>{{msg.predmsgs}}</h1>
+      </ion-text>
         </ion-item>
     <ion-item *ngFor="let rec of recomsS" >
       {{rec.NHS}}

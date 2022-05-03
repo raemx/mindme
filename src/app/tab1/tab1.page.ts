@@ -2,8 +2,6 @@ import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from "@angula
 import { HttpClientModule } from '@angular/common/http';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ApiService } from "../api.service";
-import { Tab1Service, Type } from '../services/tab1.service';
-import { Observable } from "rxjs";
 import { PostProvider } from 'src/providers/post-provider';
 import { IonicModule, ToastController } from '@ionic/angular';
 import { Router } from '@angular/router';
@@ -12,7 +10,7 @@ import {  NavController, NavParams, LoadingController } from '@ionic/angular';
 import { RouterOutlet,  ActivationStart } from '@angular/router';
 import { Push, PushObject, PushOptions } from '@awesome-cordova-plugins/push/ngx';
 import { LocalNotifications } from '@awesome-cordova-plugins/local-notifications/ngx';
-
+import { Storage } from "@ionic/storage";
 
 //@IonicPage()
 @Component({
@@ -31,17 +29,15 @@ export class Tab1Page implements OnInit {
   data: any;
   email:any;
   id: any;
+  user: string;
   
 
-  @ViewChild("barCanvas", {static: true}) barCanvas: ElementRef;
   @ViewChild(RouterOutlet) outlet: RouterOutlet;
 
-  private barChart: Chart;
 
 
   constructor(public navCtrl: NavController, 
               public http   : HttpClient,
-              private tab1Service: Tab1Service,
               private router: Router, 
               private postPvdr: PostProvider, 
               public toastCtrl: ToastController, 
@@ -50,7 +46,9 @@ export class Tab1Page implements OnInit {
               public navParams: NavParams,
               public loadingCtrl: LoadingController,
               private localNotif: LocalNotifications,
-              private push: Push
+              private push: Push,
+              private storage: Storage,
+
   ) 
   {
     //this.getUser();
@@ -61,11 +59,22 @@ export class Tab1Page implements OnInit {
     console.log('ionViewDidLoad Tab1Page');
   }
 
+  // ionViewWillEnter() {
+  //   this.storage.get('session_storage').then((res) => {
+  //     this.user = res;
+  //     //this.email = this.user.email;
+  //   });
+  // }
+
 
   async ngOnInit() {
+
+    this.router.events.subscribe(e => {
+      if (e instanceof ActivationStart && e.snapshot.outlet === "administration")
+        this.outlet.deactivate();
+    });
    
 
-    this.email = this.navParams.get('email');
     this.id = 1
     
     var headers = new Headers();
@@ -74,9 +83,9 @@ export class Tab1Page implements OnInit {
     let options = ({ headers: headers });
 
     let data = {
-     // email: this.email
      id: this.id
   };
+
 
   let loader = this.loadingCtrl.create({
     message: 'Processing please wait...',

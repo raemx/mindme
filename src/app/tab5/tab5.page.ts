@@ -30,4 +30,22 @@ logout(){
   this.navCtrl.navigateRoot(['/login']);
 }
 
+private hidden: boolean = true;
+
+  about(){
+
+    if(this.hidden === true){
+
+      this.hidden = false;
+      document.getElementById("hide").hidden = false;
+
+    }else if(this.hidden === false){
+
+      this.hidden = true;
+      document.getElementById("hide").hidden = true;
+
+    }
+
+  }
+
 }

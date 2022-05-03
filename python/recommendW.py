@@ -67,19 +67,17 @@ def recommend_item(user_index, simuserindex, m, items=5):
     return recom_information #items
 # try it out
 recommend = recommend_item(currentuser, simuserindex, matrix)
-print(recommend)
 for index, row in recommend.iterrows():
     if "W" in row['ID']: #GET RECOMMENDATION THAT FITS THE TYPE (SLEEP = W)
         x = row['recom']
         y = datetime.datetime.now()
         recom = row['NHS'] #GET WRTITTEN RECOMMENDATION
-        print(row['recom'])
         sql = "INSERT INTO recommendations (id, rmdn, timestamp) VALUES (%s, %s, %s)"#post the recommendation into the DB
         # CSV file that has more data on that specific recommendation and links to resources that are then displayed on the Resources Tab.
         var = (currentuser, x, y)
         cursor.execute(sql, var)
         conn.commit()
-        break
+        break 
 
 # """Matrix Refactorization """
 
