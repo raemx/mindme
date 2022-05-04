@@ -12,8 +12,8 @@ Install:
 To run:
 - npm i -g cordova ionic
 - npm i 
+- ..to install dependencies
 - ionic cordova prepare
-//to install dependencies
 - ionic serve
 // to run and then adjust broswer to phone dimensions 
 To run with android or iOS emulator(ensure to install the right packages):
